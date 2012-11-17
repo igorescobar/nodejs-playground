@@ -10,10 +10,10 @@ var t = new twitter({
 
 t.stream(
     'statuses/filter',
-    { track: ['#ruby', '#php', '#dev', '#python', '#javascript'] },
+    { track: ['#ruby', '#php', '#dev', '#python', '#javascript', '#nodejs', '#java'] },
     function(stream) {
         stream.on('data', function(tweet) {
-            console.log(tweet.text);
+            console.log("@" + tweet.user.screen_name + ":", tweet.text);
         });
     }
 );
