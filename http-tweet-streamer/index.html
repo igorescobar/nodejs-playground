@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tweet Streamer</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>Tweet Streamer</h1>
+    <ul id="tweets"></ul>
+    <script type="text/javascript">
+    var tweet_list = $("#tweets");
+    function load_tweets() {
+      $.getJSON("/stream", function(tweets) {
+        $.each(tweets, function() {
+          $("<li>").html(this.text).hide().prependTo(tweet_list).fadeIn('slow');
+        });
+      });
+    }
+    setInterval(load_tweets, 2000);
+    </script>
+  </body>
+</html>
