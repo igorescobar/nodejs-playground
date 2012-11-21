@@ -7,12 +7,8 @@ var express = require("express")
 app.set('view options', {layout: false});
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
-app.use(express.static(__dirname + '/public'));
 
-app.get('/*.(js|css)', function(req, res){
-  console.log(res);
-  res.sendfile("./public" + req.url);
-});
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
   res.render('index.jade', {});
