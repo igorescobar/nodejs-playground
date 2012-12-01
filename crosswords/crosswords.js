@@ -127,7 +127,6 @@ CrossWords.prototype = {
             for (var col = randomStart(), crossWordLength = this.crossWord.length; col < crossWordLength; col++) {
                 boardLine = direction === 'v' ? getColumn(col) : this.crossWord[col];
 
-                // console.log('line - > ' + boardLine, currentWord)
                 var directions = {'word': currentWord, 'direction': direction, 
                                  'position': col, 'coord': searchFreeSlot(boardLine, currentWord, 0)};
 
@@ -165,5 +164,5 @@ CrossWords.prototype = {
         console.log(applyLayout());
     }
 };
-// node.js module export
+
 module.exports = CrossWords;
