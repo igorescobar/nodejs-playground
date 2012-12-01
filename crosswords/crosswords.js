@@ -1,68 +1,63 @@
-var stdin   = process.stdin, 
-    stdout  = process.stdout,
-    words   = [],
+var stdin = process.stdin,
+    stdout = process.stdout,
+    words = [],
     crossWordSignal = '*',
-    maxWordLength   = 10,
-    maxWordSlots    = maxWordLength * 10,
-    remainingSlots  = maxWordSlots,
+    maxWordLength = 10,
+    maxWordSlots = maxWordLength * 10,
+    remainingSlots = maxWordSlots,
+    prettyPrint = process.argv[2] === "--bad-ass",
     crossWord;
-
-stdin.resume();
-stdin.setEncoding('utf8');
-
-stdout.write('So.. do you want to play crosswords?\n\n\
-Start typing the words that you want to include on it: ');
 
 // empty crossword board
 var crossWord = function () {
-  var crossWordLine = function () {
-    for (var i = 1, lineDigit = crossWordSignal; i < maxWordLength; i++){
-      lineDigit += crossWordSignal;
+    var crossWordLine = function () {
+        for (var i = 1, lineDigit = crossWordSignal; i < maxWordLength; i++)
+            lineDigit += crossWordSignal;
+
+        return lineDigit;
+    };
+
+    var crossWord = [], line = crossWordLine();
+    for(var i = 0; i < maxWordLength; i++){
+        crossWord.push(line);
     }
-
-    return lineDigit;
-  };
-
-  var crossWord = [], line = crossWordLine();
-  for(var i = 0; i < maxWordLength; i++){
-    crossWord.push(line);
-  }
 
   return crossWord;
 }();
 
 
 var validateWord = function (word) {
-  if (word.length > maxWordLength) {
-    return {"error": "Sua palavra não pode ser maior do que 10 caracteres.\n"}
-  } else if (word.length > remainingSlots) {
-    return {"error": "Sua palavra deve ser menor do que o número de slots disponíveis no jogo.\n"}
-  } 
-  return true;
+    if (word.length > maxWordLength) {
+        return {"error": "Your word '" + word + "' can't be higher than 10 chars.\n"}
+    } else if (word.length > remainingSlots) {
+        return {"error": "The word " + word + "' wasn't added. No slots available!\n"}
+    } 
+
+    return true;
 };
 
 var prepareWord = function (word) {
-  return word.toString().trim().replace(/\W+/g, '').toUpperCase();
+    return word.toString().trim().replace(/\W+/g, '').toUpperCase();
 };
 
 var registerSlots = function (word) {
-  return remainingSlots -= word.length;
+    return remainingSlots -= word.length;
 };
 
 var registerWord = function (word) {
-  var word = prepareWord(word),
-      validatedWord = validateWord(word);
+    var word = prepareWord(word),
+        validatedWord = validateWord(word);
 
-  if(typeof validatedWord !== "boolean") {
-    return stdout.write(validatedWord.error)
-  }
-  
-  registerSlots(word);
+    if (typeof validatedWord !== "boolean") {
+        return stdout.write(validatedWord.error)
+    }
 
-  return words.push(word);
+    registerSlots(word);
+
+    return words.push(word);
 };
 
-var registerWordOnBoard = function (){
+var registerWordsOnBoard = function (){
   var currentWord,
       coords = [],
       direction = 'v';
@@ -86,16 +81,28 @@ var registerWordOnBoard = function (){
 };
 
 var showBoard = function() {
-  console.log(crossWord.join('\n'));
+  var randomLetter = function () {
+    return Math.random().toString(36)
+           .substr(2,16).replace(/\d/g, '')[0]
+           .toUpperCase();
+  };
+
+  var applyLayout = function () {
+    var spacedCrossWord = crossWord.join('\n').replace(/([A-Z*])/g, function ($0) { 
+      return $0 + " " 
+    });
+
+    if(prettyPrint === true) {
+      return spacedCrossWord.replace(/\*/g, function ($0) {
+        return randomLetter();
+      });
+    }
+
+    return spacedCrossWord;
+  };
+
+  console.log(applyLayout());
 };
-
-stdin.on('data', function (word) {
-  registerWord(word);
-
-  if(remainingSlots <= 0)
-    process.exit(1);
-
-});
 
 var searchFreeSlot = function (line, word, start) {
   var lineLength = line.length,
@@ -145,12 +152,24 @@ var processDirections = function (directions) {
   }
 };
 
+// program init();
+stdin.resume();
+stdin.setEncoding('utf8');
+
+stdout.write('Type the words that you want to include on crossword game separed by comma: ');
+
+stdin.on('data', function (words) {
+  var words = words.split(',');
+  
+  words.forEach(function(word) { 
+    registerWord(word);
+  });
+
+  process.exit(1);
+});
+
 process.on('exit', function () {
-  registerWordOnBoard();
+  registerWordsOnBoard();
   showBoard();
   console.log('Have fun! :)');  
 }); 
-
-process.on('SIGINT', function () {
-  console.log('Want to see how it looks? Press Control-D :)');
-});
