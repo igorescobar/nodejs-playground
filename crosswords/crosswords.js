@@ -142,28 +142,27 @@ CrossWords.prototype = {
         }
     },
     showBoard: function() {
-        var crossWord = this.crossWord,
+        var _ = this,
             randomLetter = function () {
                 return Math.random().toString(36)
                        .substr(2,16).replace(/\d/g, '')[0]
                        .toUpperCase();
+            },
+            applyLayout = function () {
+                var spacedCrossWord = _.crossWord.join('\n').replace(/([A-Z0-9*])/g, function ($0) { 
+                    return $0 + " "; 
+                });
+
+                if(_.prettyPrint === true) {
+                    return spacedCrossWord.replace(/\*/g, function ($0) {
+                        return randomLetter();
+                    });
+                }
+
+                return spacedCrossWord;
             };
 
-        var applyLayout = function () {
-            var spacedCrossWord = crossWord.join('\n').replace(/([A-Z0-9*])/g, function ($0) { 
-                return $0 + " "; 
-            });
-
-            if(this.prettyPrint === true) {
-                return spacedCrossWord.replace(/\*/g, function ($0) {
-                    return this.randomLetter();
-                });
-            }
-
-            return spacedCrossWord;
-        };
-
-        console.log(applyLayout(this));
+        console.log(applyLayout());
     }
 };
 // node.js module export
