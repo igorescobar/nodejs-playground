@@ -1,6 +1,8 @@
 // Constructor
 var CrossWords = function() {
     this.crossWord = this.drawCrossWord();
+    this.maxWordSlots = this.maxWordLength * 10;
+    this.remainingSlots = this.maxWordSlots;
 };
 
 // properties and methods
@@ -10,8 +12,8 @@ CrossWords.prototype = {
     words: [],
     crossWordSignal: '*',
     maxWordLength: 10,
-    maxWordSlots: this.maxWordLength * 10,
-    remainingSlots: this.maxWordSlots,
+    maxWordSlots: 0,
+    remainingSlots: 0,
     prettyPrint: process.argv[2] !== "--noobie",
     wordsShortCut: process.argv[2] === "--words",
     crossWord: {},
@@ -48,7 +50,7 @@ CrossWords.prototype = {
             validatedWord = this.validateWord(word);
 
         if (typeof validatedWord !== "boolean") {
-            return stdout.write(validatedWord.error)
+            return this.stdout.write(validatedWord.error)
         }
 
         this.registerSlots(word);
