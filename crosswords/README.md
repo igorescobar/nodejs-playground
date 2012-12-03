@@ -9,10 +9,12 @@ and plot it to the board.
   * node start.js --words word1,word2,word3,word4
 
 # Examples
+## Interactive mode
+> A simple interactive setup of the crossword
+
 `node start.js`
 
->Type the words that you want to include on crossword game separed by comma: cross,words,cool`
-
+    Type the words that you want to include on crossword game separed by comma: cross,words,cool
     H D E O C N X F N F 
     O K G G B B M H S Y 
     V E K Y Z E W L F V 
@@ -24,6 +26,9 @@ and plot it to the board.
     A N M R J W O R D S 
     T O I C H Q C Z R A 
     Have fun! :)
+
+## Noobie mode
+> It's just a mode to help you to identify the words more easily
 
 `node start.js --noobie`
 
@@ -38,6 +43,9 @@ and plot it to the board.
     * * * * * * * * * * 
     * * * * * * * * * * 
     Have fun! :)
+
+## --words mode
+> A simple way to unactive the interactive mode and generate your crossword a little bit faster.
 
 `node start.js --words cross,words,cool`
 
