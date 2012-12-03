@@ -9,78 +9,46 @@ and plot it to the board.
   * node start.js --words word1,word2,word3,word4
 
 # Examples
-$> node start
-$> Type the words that you want to include on crossword game separed by comma: palavras,cruzadas,cool
+`node start.js`
 
-`H D E O C N X F N F `
+>Type the words that you want to include on crossword game separed by comma: cross,words,cool`
 
-`O K G G B B M H S Y `
+    H D E O C N X F N F 
+    O K G G B B M H S Y 
+    V E K Y Z E W L F V 
+    Q R B R O C O O L G 
+    C F E S G N Z V O S 
+    I Y I O H N S D L D 
+    C R O S S S I Y V T 
+    R T R Q U T K V M F 
+    A N M R J W O R D S 
+    T O I C H Q C Z R A 
+    Have fun! :)
 
-`V E K Y Z E W L F V `
+`node start.js --noobie`
 
-`Q R B R O C O O L G `
+    * * C * * * * * * * 
+    * * O * * * * * * * 
+    * * O * * * * * * * 
+    * * L * * * * * * * 
+    * * * * * * * * * * 
+    * * * C R O S S * * 
+    * W O R D S * * * * 
+    * * * * * * * * * * 
+    * * * * * * * * * * 
+    * * * * * * * * * * 
+    Have fun! :)
 
-`C F E S G N Z V O S `
+`node start.js --words cross,words,cool`
 
-`I Y I O H N S D L D `
-
-`C R O S S S I Y V T `
-
-`R T R Q U T K V M F `
-
-`A N M R J W O R D S `
-
-`T O I C H Q C Z R A `
-
-`Have fun! :)`
-
-
-$> node start.js --noobie
-
-`* * C * * * * * * * `
-
-`* * O * * * * * * * `
-
-`* * O * * * * * * * `
-
-`* * L * * * * * * * `
-
-`* * * * * * * * * * `
-
-`* * * C R O S S * * `
-
-`* W O R D S * * * * `
-
-`* * * * * * * * * * `
-
-`* * * * * * * * * * `
-
-`* * * * * * * * * * `
-
-`Have fun! :)`
-
-
-$> node start.js --words cross,words,cool
-
-`I J C R F L R Z T Y `
-
-`E M Y F J C S U I M `
-
-`A H Y J Z N V H M Y `
-
-`M O Y U R L I B O P `
-
-`I J U B I W O R D S `
-
-`R Y A U N X W Z U C `
-
-`X K Q H X K N V A O `
-
-`F M Z D K S X V C O `
-
-`P V U E E C B W M L `
-
-`C R O S S G A O M S `
-
-`Have fun! :)`
-
+    I J C R F L R Z T Y 
+    E M Y F J C S U I M 
+    A H Y J Z N V H M Y 
+    M O Y U R L I B O P 
+    I J U B I W O R D S 
+    R Y A U N X W Z U C 
+    X K Q H X K N V A O 
+    F M Z D K S X V C O 
+    P V U E E C B W M L 
+    C R O S S G A O M S 
+    Have fun! :)
