@@ -1,7 +1,8 @@
 # How it works?
-It's pretty simple. Once input the words you would like to add to the board, 
-the algorithm calulate all possible possitions for each inputed word. 
-Once it have the answer, the algorithm pick a random possible position for each word.
+It's pretty simple. Once inputed the words you would like to add to the board, 
+the algorithm calulates all possible positions for each word (vertically and horizontally). 
+Once it has the answer, the algorithm pick a random possible position for each word 
+and plot it to the board.
 # How to play:
   * node start.js
   * node start.js --noobie
