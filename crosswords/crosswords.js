@@ -153,16 +153,11 @@ CrossWords.prototype = {
                 }
             }
              
-        },
-        currentWord;
+        };
 
-        for (i in this.words) {
-            currentWord = this.words[i];
-            
-            var directions = searchFreeSlot(currentWord);
-            processDirections(directions);
-            
-        }
+        this.words.forEach(function(word){
+            processDirections(searchFreeSlot(word));
+        });
     },
     showBoard: function() {
         var _ = this,

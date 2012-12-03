@@ -43,5 +43,10 @@ module.exports = {
 
     assert.equal(3, game.words.length); 
     assert.equal(86, game.remainingSlots);
+  },
+  'methods.orderByLength()': function(){
+    var words = ['a', 'bc', 'yahoo'];
+
+    assert.equal('yahoo', game.orderByLength(words)[0]); 
   }
 };
