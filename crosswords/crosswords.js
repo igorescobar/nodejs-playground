@@ -77,10 +77,7 @@ CrossWords.prototype = {
         return this.remainingSlots -= word.length;
     },
     registerWordsOnBoard: function () {
-        var _ = this, 
-        randomStart = function () {
-            return Math.floor((Math.random()*9));
-        },
+        var _ = this,
         getColumn = function (col) {
             var line = [];
             for(var l = 0; l < _.crossWord.length; l++)
