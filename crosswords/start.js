@@ -2,8 +2,8 @@ var CrossWords = require('./crosswords'),
     game = new CrossWords();
 
 if(game.wordsShortCut === false) {
-    game.stdout.write('Type the words that you want to \
-                      include on crossword game separed by comma: ');
+    game.stdout.write('Type the words that you want to ' + 
+                      'include on crossword game separed by comma: ');
     
     game.stdin.resume();
     game.stdin.setEncoding('utf8');
