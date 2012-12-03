@@ -5,7 +5,7 @@ var CrossWords = function() {
 };
 
 CrossWords.prototype = {
-    PossibleDirections: ['h','v'],
+    possibleDirections: ['h','v'],
     stdin: process.stdin,
     stdout: process.stdout,
     words: [],
@@ -110,8 +110,8 @@ CrossWords.prototype = {
                 possiblePlaces = [];
 
             // calculating all possible horizontal and verital positions
-            for(var d = 0, possibleDirectionsLength = _.PossibleDirections.length; d < possibleDirectionsLength; d++){
-                var direction = _.PossibleDirections[d];
+            for(var d = 0, possibleDirectionsLength = _.possibleDirections.length; d < possibleDirectionsLength; d++){
+                var direction = _.possibleDirections[d];
 
                 for (var ln = 0; ln < _.maxWordLength; ln++){
                     var line = direction === 'v' ? getColumn(ln) : _.crossWord[ln],
