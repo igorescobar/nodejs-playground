@@ -1,11 +1,9 @@
-// Constructor
 var CrossWords = function() {
     this.crossWord = this.drawCrossWord();
     this.maxWordSlots = this.maxWordLength * 10;
     this.remainingSlots = this.maxWordSlots;
 };
 
-// properties and methods
 CrossWords.prototype = {
     PossibleDirections: ['h','v'],
     stdin: process.stdin,
@@ -28,9 +26,8 @@ CrossWords.prototype = {
         };
 
         var crossWord = [], line = crossWordLine(this);
-        for(var i = 0; i < this.maxWordLength; i++){
+        for (var i = 0; i < this.maxWordLength; i++)
             crossWord.push(line);
-        }
 
       return crossWord;
     },
@@ -117,15 +114,12 @@ CrossWords.prototype = {
                 var direction = _.PossibleDirections[d];
 
                 for (var ln = 0; ln < _.maxWordLength; ln++){
-
                     var line = direction === 'v' ? getColumn(ln) : _.crossWord[ln],
                         lineLength = line.length,
-                        endCords = 0;
-                    
-                    
-                    var coords = searchFreeSlotByLine(line, word, endCords);
+                        endCords = 0,
+                        coords = searchFreeSlotByLine(line, word, endCords);
+
                     while (coords[1] < lineLength){
-                        
                         possiblePlaces.push({'direction': direction, 'position': ln, 'word': word, 'coord': [coords[0], coords[1]]});
                         coords = searchFreeSlotByLine(line, word, endCords++);
                     }
@@ -141,7 +135,7 @@ CrossWords.prototype = {
                 return str.substr(0, index) + chr + str.substr(index + 1);
             };
 
-            if(directions) {
+            if (directions) {
                 for(var i = directions.coord[0], w = 0; i < directions.coord[1]; i++) {
                     if (directions.direction === 'h') {
                         _.crossWord[directions.position] = setCharAt(_.crossWord[directions.position], i, directions.word[w]);
@@ -151,8 +145,7 @@ CrossWords.prototype = {
 
                     w++;
                 }
-            }
-             
+            }  
         };
 
         this.words.forEach(function(word){
