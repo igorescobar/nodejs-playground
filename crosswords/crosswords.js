@@ -93,7 +93,7 @@ CrossWords.prototype = {
             }
 
             var end = start;
-            for (var col = end; col < lineLength; col++) {
+            for (var col = end; col <= lineLength; col++) {
                 var rangeSize = end - start;
                 if (rangeSize == wordLength) break;
                 if (line[col] === _.crossWordSignal || line[col] === word[col]) {
@@ -119,7 +119,7 @@ CrossWords.prototype = {
                         endCords = 0,
                         coords = searchFreeSlotByLine(line, word, endCords);
 
-                    while (coords[1] < lineLength){
+                    while (coords[1] <= lineLength){
                         possiblePlaces.push({'direction': direction, 'position': ln, 'word': word, 'coord': [coords[0], coords[1]]});
                         coords = searchFreeSlotByLine(line, word, endCords++);
                     }
