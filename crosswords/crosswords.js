@@ -1,4 +1,5 @@
 var CrossWords = function() {
+    this.words = [];
     this.crossWord = this.drawCrossWord();
     this.maxWordSlots = this.maxWordLength * 10;
     this.remainingSlots = this.maxWordSlots;
@@ -11,6 +12,7 @@ CrossWords.prototype = {
     maxWordLength: 10,
     maxWordSlots: 0,
     remainingSlots: 0,
+    randomPositions: true,
     prettyPrint: process.argv[2] !== "--noobie",
     wordsShortCut: process.argv[2] === "--words",
     crossWord: {},
@@ -122,8 +124,9 @@ CrossWords.prototype = {
                     }
                 }
             }
-            // pick a random free position
-            return (possiblePlaces.length > 0) ? _.randomArray(possiblePlaces)[0] : [];
+            // pick a random free position if randomPositions is true
+            possiblePlaces = _.randomPositions ? _.randomArray(possiblePlaces)[0] : possiblePlaces[0]
+            return typeof possiblePlaces === "object" ? possiblePlaces : {};
         },
         processDirections = function (directions) {
             var setCharAt = function (str, index, chr) {
