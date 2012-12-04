@@ -28,6 +28,6 @@ if(game.wordsShortCut === false) {
 
 process.on('exit', function () {
     game.registerWordsOnBoard();
-    game.showBoard();
+    console.log(game.showBoard());
     console.log('Have fun! :)');  
 });

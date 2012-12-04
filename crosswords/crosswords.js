@@ -172,7 +172,7 @@ CrossWords.prototype = {
                 return spacedCrossWord;
             };
 
-        console.log(applyLayout());
+        return applyLayout();
     }
 };
 

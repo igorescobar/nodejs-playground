@@ -88,5 +88,6 @@ module.exports = {
     game = new CrossWords();
     game.processTypedWords('yahoo,meme,poker');
     game.registerWordsOnBoard();
+    assert.deepEqual(209, game.showBoard().length);
   }
 };
