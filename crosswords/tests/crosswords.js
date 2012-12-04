@@ -4,8 +4,6 @@ var assert = require('assert'),
 
 module.exports = {
   'options.startUpOptions': function () {
-    assert.equal('object', typeof game.stdin);
-    assert.equal('object', typeof game.stdout);
     assert.eql([], game.words);
     assert.equal('*', game.crossWordSignal);
     assert.equal(10, game.maxWordLength);
@@ -38,15 +36,57 @@ module.exports = {
     game = new CrossWords(); // reseting classes
   },
   'methods.processTypedWords()': function(){
-    var words = 'yahoo,meme,poker';
-    game.processTypedWords(words);
+    game.processTypedWords('yahoo,meme,poker');
 
     assert.equal(3, game.words.length); 
     assert.equal(86, game.remainingSlots);
   },
   'methods.orderByLength()': function(){
-    var words = ['a', 'bc', 'yahoo'];
+    assert.equal('yahoo', game.orderByLength(['a', 'bc', 'yahoo'])[0]); 
+  },
+  'methods.registerWordsOnBoard().smallWords': function(){
+    game = new CrossWords();
+    game.randomPositions = false;
 
-    assert.equal('yahoo', game.orderByLength(words)[0]); 
+    game.processTypedWords('yahoo,meme,poker');
+    game.registerWordsOnBoard();
+
+    assert.deepEqual(['POKER', 'YAHOO', 'MEME'], game.words);
+    assert.deepEqual(
+      ["POKERYAHOO",
+       "MEME******",
+       "**********",
+       "**********",
+       "**********",
+       "**********",
+       "**********",
+       "**********",
+       "**********",
+       "**********"], game.crossWord);
+  },
+  'methods.registerWordsOnBoard().biggerWords': function(){
+    game = new CrossWords();
+    game.randomPositions = false;
+
+    game.processTypedWords('felicidade,geladeiras,pernambuco,camilinhas,respondera,comunidade,institutos,curriculos,dicionario');
+    game.registerWordsOnBoard();
+
+    assert.deepEqual(["DICIONARIO","CURRICULOS","INSTITUTOS","COMUNIDADE","RESPONDERA","CAMILINHAS","PERNAMBUCO","GELADEIRAS","FELICIDADE"], game.words);
+    assert.deepEqual(
+      ["DICIONARIO",
+       "CURRICULOS",
+       "INSTITUTOS",
+       "COMUNIDADE",
+       "RESPONDERA",
+       "CAMILINHAS",
+       "PERNAMBUCO",
+       "GELADEIRAS",
+       "FELICIDADE",
+       "**********"], game.crossWord);
+  },
+  'methods.showBoard()': function(){
+    game = new CrossWords();
+    game.processTypedWords('yahoo,meme,poker');
+    game.registerWordsOnBoard();
   }
 };
