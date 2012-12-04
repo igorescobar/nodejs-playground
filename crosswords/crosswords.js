@@ -6,8 +6,6 @@ var CrossWords = function() {
 
 CrossWords.prototype = {
     possibleDirections: ['h','v'],
-    stdin: process.stdin,
-    stdout: process.stdout,
     words: [],
     crossWordSignal: '*',
     maxWordLength: 10,
@@ -32,10 +30,10 @@ CrossWords.prototype = {
       return crossWord;
     },
     orderByLength: function (words) {
-        return words.sort(function(a, b){ return a.length <= b.length });
+        return words.sort(function (a, b) { return a.length <= b.length });
     },
     randomArray: function (array) {
-        return array.sort(function() { 
+        return array.sort(function () { 
             return 0.5 - Math.random();
         });
     },
@@ -56,7 +54,7 @@ CrossWords.prototype = {
             validatedWord = this.validateWord(word);
 
         if (typeof validatedWord !== "boolean") {
-            return this.stdout.write(validatedWord.error)
+            return process.stdout.write(validatedWord.error)
         }
 
         this.registerSlots(word);
@@ -83,7 +81,6 @@ CrossWords.prototype = {
             return line.join('');
         },
         searchFreeSlotByLine = function (line, word, start){
-
             var lineLength = line.length,
                 wordLength = word.length;
 
@@ -125,9 +122,8 @@ CrossWords.prototype = {
                     }
                 }
             }
-
-            if(possiblePlaces.length > 0)
-                return _.randomArray(possiblePlaces)[0];
+            // pick a random free position
+            return (possiblePlaces.length > 0) ? _.randomArray(possiblePlaces)[0] : [];
         },
         processDirections = function (directions) {
             var setCharAt = function (str, index, chr) {
