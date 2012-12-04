@@ -1,0 +1,24 @@
+{
+  "name": "crosswords",
+  "preferGlobal": "true",
+  "version": "1.0.0",
+  "author": "Igor Escobar <blog@igorescobar.com>",
+  "description": "A simple crossword game algorithm.",
+  "scripts": {
+    "start": "node ./start.js",
+    "test": "expresso tests/*"
+  },
+  "main": "node ./start.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/igorescobar/nodejs-playground.git"
+  },
+  "analyze": false,
+  "devDependencies": {
+    "expresso":  ">= 0.9.x"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6"
+  }
+}
