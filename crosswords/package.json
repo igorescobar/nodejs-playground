@@ -15,7 +15,8 @@
   },
   "analyze": false,
   "devDependencies": {
-    "expresso":  ">= 0.9.x"
+    "expresso":  ">= 0.9.x",
+    "jscoverage": ">= 0.2.x"
   },
   "license": "MIT",
   "engines": {
