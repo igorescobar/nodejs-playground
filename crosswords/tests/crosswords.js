@@ -76,7 +76,6 @@ module.exports = {
        "**********",
        "**********",
        "**********"], game.crossWord);
-    console.log(game.possiblePositions);
     assert.eql(
       [ { direction: 'h', position: 1, word: 'MEME', coord: [ 0, 4 ] },
         { direction: 'h', position: 1, word: 'MEME', coord: [ 0, 4 ] },
