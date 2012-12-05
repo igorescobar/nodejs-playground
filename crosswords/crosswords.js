@@ -56,12 +56,13 @@ CrossWords.prototype = {
             validatedWord = this.validateWord(word);
 
         if (typeof validatedWord !== "boolean") {
-            return process.stdout.write(validatedWord.error)
+            process.stdout.write(validatedWord.error)
+            return validatedWord.error;
         }
 
         this.registerSlots(word);
-
-        return this.words.push(word);
+        this.words.push(word);
+        return this.words;
     },
     processTypedWords: function (words) {
         var _ = this, words = this.orderByLength(words.split(','));
