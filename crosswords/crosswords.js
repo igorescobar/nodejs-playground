@@ -38,7 +38,7 @@ CrossWords.prototype = {
     },
     randomArray: function (array) {
         return array.sort(function () { 
-            return 0.5 - Math.random();
+            return 0.1 - Math.random();
         });
     },
     prepareWord: function (word) {
@@ -89,8 +89,8 @@ CrossWords.prototype = {
             var lineLength = line.length,
                 wordLength = word.length;
 
-            for (var col = start; col < lineLength; col++) {
-                if(line[col] === _.crossWordSignal || line[col] === word[col]) break;
+            for (var col = start; col <= lineLength; col++) {
+                if (line[col] === _.crossWordSignal || line[col] === word[col]) break;
                 start++
             }
 

@@ -1,6 +1,6 @@
-var jsc = require('jscoverage'),
-    assert = require('assert'),
-    require = jsc.require(module),
+var assert = require('assert'),
+    jsc = require('jscoverage'),
+    require = require(module),
     CrossWords = require('../crosswords.js', true),
     game = new CrossWords();
 
