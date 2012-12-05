@@ -1,5 +1,6 @@
 var CrossWords = function() {
     this.words = [];
+    this.possiblePositions = [],
     this.crossWord = this.drawCrossWord();
     this.maxWordSlots = this.maxWordLength * 10;
     this.remainingSlots = this.maxWordSlots;
@@ -8,6 +9,7 @@ var CrossWords = function() {
 CrossWords.prototype = {
     possibleDirections: ['h','v'],
     words: [],
+    possiblePositions: [],
     crossWordSignal: '*',
     maxWordLength: 10,
     maxWordSlots: 0,
@@ -126,6 +128,7 @@ CrossWords.prototype = {
                 }
             }
             // pick a random free position if randomPositions is true
+            _.possiblePositions = possiblePlaces;
             possiblePlaces = _.randomPositions ? _.randomArray(possiblePlaces)[0] : possiblePlaces[0]
             return typeof possiblePlaces === "object" ? possiblePlaces : {};
         },
