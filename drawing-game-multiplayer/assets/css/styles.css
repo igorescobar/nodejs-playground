@@ -1,44 +1,19 @@
 /*-------------------------
 	Simple reset
 --------------------------*/
-
-
-*{
-	margin:0;
-	padding:0;
-}
+*{ margin:0; padding:0;}
 
 
 /*-------------------------
 	General Styles
 --------------------------*/
 
-
-html{
-	background:url('../img/bg.png') repeat #e4e4e4;
-		
-	/* This will hide the extra canvas if the screen is small */
-	overflow:hidden;
-}
+html{ background:url('../img/bg.png') repeat #333; overflow:hidden;}
 
 body{
 	font:14px/1.3 'Segoe UI',Arial, sans-serif;
 	color:#444;
 }
-
-a, a:visited {
-	outline:none;
-	color:#43819b;
-}
-
-a:hover{
-	text-decoration:none;
-}
-
-section, footer, header{
-	display: block;
-}
-
 
 /*-------------------------
 	Main Area
@@ -88,13 +63,9 @@ h3{
 	background:url('../img/pointer.png') no-repeat -4px 0;
 }
 
-
-
 /*----------------------------
 	The Footer
 -----------------------------*/
-
-
 footer{
 	background-color: #111111;
 	bottom: 0;
@@ -120,24 +91,4 @@ footer h2{
 footer h2 i{
 	font-style:normal;
 	color:#888;
-}
-
-footer a.tzine,a.tzine:visited{
-	color: #999999;
-	font-size: 12px;
-	left: 50%;
-	margin: 16px 0 0 110px;
-	position: absolute;
-	text-decoration: none;
-	top: 0;
-}
-
-footer a i{
-	color:#ccc;
-	font-style: normal;
-}
-
-footer a i b{
-	color:#c92020;
-	font-weight: normal;
 }
