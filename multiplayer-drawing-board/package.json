@@ -1,0 +1,21 @@
+{
+  "name": "Node.js Multiplayer Drawing Board",
+  "preferGlobal": "true",
+  "version": "1.0.0",
+  "author": "Igor Escobar <blog@igorescobar.com>",
+  "description": "With this node.js app you can draw with all your friends at the same time.",
+  "main": "node ./app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/igorescobar/nodejs-playground.git"
+  },
+  "analyze": false,
+  "devDependencies": {
+    "node-static":  ">= 0.6.x",
+    "socket.io": ">= 0.9.x"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6"
+  }
+}
