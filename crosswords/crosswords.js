@@ -7,7 +7,7 @@ var CrossWords = function() {
 };
 
 CrossWords.prototype = {
-    possibleDirections: ['h','v'],
+    possibleDirections: ['h','v','d'],
     words: [],
     possiblePositions: [],
     crossWordSignal: '*',
@@ -36,10 +36,8 @@ CrossWords.prototype = {
     orderByLength: function (words) {
         return words.sort(function (a, b) { return a.length <= b.length });
     },
-    randomArray: function (array) {
-        return array.sort(function () { 
-            return 0.1 - Math.random();
-        });
+    randomArrayPosition: function (array) {
+        return array[Math.floor(Math.random() * array.length)];
     },
     prepareWord: function (word) {
         return word.toString().trim().replace(/\W+/g, '').toUpperCase();
@@ -77,83 +75,99 @@ CrossWords.prototype = {
         return this.remainingSlots -= word.length;
     },
     registerWordsOnBoard: function () {
-        var _ = this,
-        getColumn = function (col) {
+        var _ = this;
+        _.getColumn = function (col, direction) {
             var line = [];
-            for(var l = 0; l < _.crossWord.length; l++)
-                line.push(_.crossWord[l][col]);
-
+            if (direction === "v")
+                for(var l = 0; l < _.crossWord.length; l++)
+                    line.push(_.crossWord[l][col]);
+            else if (direction === "h"){
+                return _.crossWord[col];
+            } else if (direction === "d") {
+                for(var l = 0; l < _.crossWord.length; l++)
+                    line.push(_.crossWord[l][l]);
+            }
             return line.join('');
-        },
-        searchFreeSlotByLine = function (line, word, start){
-            var lineLength = line.length,
-                wordLength = word.length;
+        };
 
-            for (var col = start; col <= lineLength; col++) {
-                if (line[col] === _.crossWordSignal || line[col] === word[col]) break;
+        _.searchFreeSlotByLine = function (line, word, start){
+            var lineLength = line.length,
+                wordLength = word.length-1;
+
+            for (var col = start, w = 0; col < lineLength; col++, w++) {
+                if (line[col] === _.crossWordSignal || line[col] === word[w]) break;
                 start++
             }
 
             var end = start;
-            for (var col = end; col <= lineLength; col++) {
-                var rangeSize = end - start;
-                if (rangeSize == wordLength) break;
-                if (line[col] === _.crossWordSignal || line[col] === word[col]) {
-                    end++
+            for (var col = end, w = 0; col < lineLength; col++, w++) {
+                if ((end - start) === wordLength && (line[col] === _.crossWordSignal || line[col] === word[w])) break;
+                if (line[col] === _.crossWordSignal || line[col] === word[w]) {
+                    end++;
                 } else {
-                    return searchFreeSlotByLine(line, word, start + 1);
+                    return _.searchFreeSlotByLine(line, word, end);
                 }
             }
 
             return [start, end]
-        },
-        searchFreeSlot = function (word) {
-            var wordLength = word.length,
+        };
+
+        _.searchFreeSlot = function (word) {
+            var wordLength = word.length-1,
                 possiblePlaces = [];
 
-            // calculating all possible horizontal and verital positions
+            // calculating all possible positions
             for(var d = 0, possibleDirectionsLength = _.possibleDirections.length; d < possibleDirectionsLength; d++){
-                var direction = _.possibleDirections[d];
+                var direction = _.possibleDirections[d],
+                    lineLength = _.maxWordLength;
 
                 for (var ln = 0; ln < _.maxWordLength; ln++){
-                    var line = direction === 'v' ? getColumn(ln) : _.crossWord[ln],
-                        lineLength = line.length,
+                    var line = _.getColumn(ln, direction),
+                        position = 0,
                         endCords = 0,
-                        coords = searchFreeSlotByLine(line, word, endCords);
+                        coords = [0,0];
 
-                    while (coords[1] <= lineLength){
-                        possiblePlaces.push({'direction': direction, 'position': ln, 'word': word, 'coord': [coords[0], coords[1]]});
-                        coords = searchFreeSlotByLine(line, word, endCords++);
-                    }
+                    while(position < lineLength){
+                        coords = _.searchFreeSlotByLine(line, word, position),
+                        diffRange = coords[1] - coords[0];
+                        if(diffRange === wordLength && coords[1] < lineLength)
+                            possiblePlaces.push({'direction': direction, 'position': ln, 'word': word, 'coord': [coords[0], coords[1]]});
+                        position++;
+                    }                        
                 }
             }
-            // pick a random free position if randomPositions is true
-            _.possiblePositions = possiblePlaces;
-            possiblePlaces = _.randomPositions ? _.randomArray(possiblePlaces)[0] : possiblePlaces[0]
-            return typeof possiblePlaces === "object" ? possiblePlaces : {};
-        },
-        processDirections = function (directions) {
+            
+            _.possiblePositions[word] = possiblePlaces;            
+            return possiblePlaces;
+        };
+
+        _.processDirections = function (directions) {
             var setCharAt = function (str, index, chr) {
+                str = str || ""
                 if(index > str.length - 1) return str;
                 return str.substr(0, index) + chr + str.substr(index + 1);
             };
 
             if (directions) {
-                for(var i = directions.coord[0], w = 0; i < directions.coord[1]; i++) {
+                for(var i = directions.coord[0], w = 0; i <= directions.coord[1]; i++, w++) {
                     if (directions.direction === 'h') {
                         _.crossWord[directions.position] = setCharAt(_.crossWord[directions.position], i, directions.word[w]);
-                    } else {
+                    } else if (directions.direction === 'v') {
                         _.crossWord[i] = setCharAt(_.crossWord[i], directions.position, directions.word[w]);
+                    } else if (directions.direction === 'd') {
+                        _.crossWord[i] = setCharAt(_.crossWord[i], i, directions.word[w]);
                     }
-
-                    w++;
                 }
             }  
         };
 
         this.words.forEach(function(word){
-            processDirections(searchFreeSlot(word));
+            _.searchFreeSlot(word);
+            possiblePlaces = _.randomPositions ? _.randomArrayPosition(_.possiblePositions[word]) : _.possiblePositions[word][0]
+            _.processDirections(possiblePlaces);
         });
+
+        return _;
     },
     showBoard: function() {
         var _ = this,
