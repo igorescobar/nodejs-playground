@@ -1,7 +1,7 @@
 var assert = require('assert'),
     jsc = require('jscoverage'),
-    // require = require(module),
-    CrossWords = require('../crosswords.js', true),
+    libpath = process.env['CROSSWORDS_COV'] ? '../crosswords-cov.js' : '../crosswords.js';
+    CrossWords = require(libpath),
     game = new CrossWords();
 
 module.exports = {
@@ -974,5 +974,6 @@ module.exports = {
 };
 
 process.on('exit',function(){
-   jsc.coverage();
+    if(process.env['CROSSWORD_COV'])
+        jsc.coverage();
 });
