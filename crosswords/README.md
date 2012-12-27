@@ -1,12 +1,19 @@
 # How it works?
 It's pretty simple. Once inputed the words you would like to add to the board, 
-the algorithm calulates all possible positions for each word (vertically and horizontally). 
+the algorithm calulates all possible positions for each word (vertically, horizontally and bias). 
 Once it has the answer, the algorithm pick a random possible position for each word 
 and plot it to the board.
 # How to play:
   * node start.js
   * node start.js --noobie
   * node start.js --words word1,word2,word3,word4
+
+# Running tests
+  * `./expresso`
+
+# Running Code Coverage Report
+  * `CROSSWORDS_COV=1 ./expresso`
+  * `CROSSWORDS_COV=1 ./expresso -c --json coverage.json`
 
 # Examples
 ## Interactive mode
@@ -32,15 +39,15 @@ and plot it to the board.
 
 `node start.js --noobie`
 
-    * * C * * * * * * * 
-    * * O * * * * * * * 
-    * * O * * * * * * * 
-    * * L * * * * * * * 
-    * * * * * * * * * * 
-    * * * C R O S S * * 
-    * W O R D S * * * * 
     * * * * * * * * * * 
     * * * * * * * * * * 
+    * * * * * * * * * * 
+    * * * 2 0 1 3 * * * 
+    * C R O S S * * * * 
+    * * * * * C * * * * 
+    * * * * * W O R D S 
+    * * * * * * * O * * 
+    * * * * * * * * L * 
     * * * * * * * * * * 
     Have fun! :)
 
